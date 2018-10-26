@@ -1,4 +1,4 @@
-#Pandas libraray
+# Pandas libraray
   Pandas is a library for data structures and data analysis.
 
 ## Basics
@@ -45,3 +45,22 @@ df.plot()
 plt.show()
 ```
 
+ Convert dataframe to list:
+```
+print(df.Visitors.tolist())
+```
+
+or an array:
+```
+import numpy as np
+print(np.array(df[['Bounce_Rate', 'Visitors']]))
+```
+
+and back:
+
+```
+df2 = pd.DataFrame(np.array(df[['Bounce_Rate', 'Visitors']]))
+
+```
+
+## Pandas IO

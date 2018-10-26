@@ -2,7 +2,6 @@ import pandas as pd
 import pandas_datareader as web
 import matplotlib.pyplot as plt
 from matplotlib import style
-import numpy as np
 # style.use('ggplot')
 
 web_stats = {'Day': [1, 2, 3, 4, 5, 6],
@@ -26,6 +25,3 @@ print(df.Visitors)
 #plot a single column with df['Visitors'].plot()
 df.plot()
 plt.show()
-
-print(df.Visitors.tolist())
-print(np.array(df[['Bounce_Rate', 'Visitors']]))
