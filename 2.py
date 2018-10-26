@@ -11,3 +11,5 @@ web_stats = {'Day': [1, 2, 3, 4, 5, 6],
 df = pd.DataFrame(web_stats)
 
 print(df)
+print(df.head(2))
+print(df.tail(2))
