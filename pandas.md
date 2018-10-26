@@ -1,8 +1,8 @@
 # Pandas libraray
-  Pandas is a library for data structures and data analysis.
+Pandas is a library for data structures and data analysis.
 
 ## Basics
- Import pandas as pd, using DataFrame function to create a data frame, and printing it.
+Import pandas as pd, using DataFrame function to create a data frame, and printing it.
 ```
 import pandas as pd
 
@@ -16,7 +16,7 @@ print(df)
 print(df.head(2))
 print(df.tail(2))
 ```
- The values are printed with index values by default. You can define the index as one of your data values.
+The values are printed with index values by default. You can define the index as one of your data values.
 
 ```
 df.set_index('Day', inplace=True)
@@ -45,7 +45,7 @@ df.plot()
 plt.show()
 ```
 
- Convert dataframe to list:
+Convert dataframe to list:
 ```
 print(df.Visitors.tolist())
 ```
@@ -64,3 +64,14 @@ df2 = pd.DataFrame(np.array(df[['Bounce_Rate', 'Visitors']]))
 ```
 
 ## Pandas IO
+Display some sample data from quandl.com, and add indexing by date.
+
+```
+import pandas as pd
+
+df = pd.read_csv('ZILL-Z77006_3B.csv')
+print(df.head())
+
+df.set_index('Date', inplace = True)
+```
+
