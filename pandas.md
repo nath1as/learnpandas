@@ -1,5 +1,7 @@
-# Pandas libraray
-Pandas is a library for data structures and data analysis. Tutorials from pythonprogramming.net.
+# Python: Pandas
+
+Pandas is a library for data structures and data analysis. Tutorials from pythonprogramming.net. Pandas has io tools to import data from different types and analysis tools useful for analysis.
+
 ## Basics
 Import pandas as pd, using DataFrame function to create a data frame, and printing it.
 ```
@@ -151,5 +153,101 @@ for abbv in fiddy_states[0][0][1:]:
     print("FMAC/HPI_"+str(abbv))
 ```
 
-## Concatenating Dataframes
+## Concatenating and Appending Dataframes
+The first and third dataframe have the same index but different columns, the wecond and third different indexes and some different columns.
 
+```
+import pandas as pd
+
+df1 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Int_rate':[2, 3, 2, 2],
+                    'US_GDP_Thousands':[50, 55, 65, 55]},
+                   index = [2001, 2002, 2003, 2004])
+
+df2 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Int_rate':[2, 3, 2, 2],
+                    'US_GDP_Thousands':[50, 55, 65, 55]},
+                   index = [2005, 2006, 2007, 2008])
+
+df3 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Int_rate':[2, 3, 2, 2],
+                    'Low_tier_HPI':[50, 52, 50, 53]},
+                   index = [2001, 2002, 2003, 2004])
+```
+
+Concatenation works for the dataframes with the same columns, and the continuation of indexes.
+```
+concat = pd.concat([df1,df2])
+print(concat)
+
+#output
+
+      HPI  Int_rate  US_GDP_Thousands
+2001   80         2                50
+2002   85         3                55
+2003   88         2                65
+2004   85         2                55
+2005   80         2                50
+2006   85         3                55
+2007   88         2                65
+2008   85         2                55
+
+```
+
+Concatenation of dataframes with different columns populates the missing values with NaN.
+
+```
+concat = pd.concat([df1,df2,df3])
+print(concat)
+
+#output
+
+      HPI  Int_rate  Low_tier_HPI  US_GDP_Thousands
+2001   80         2           NaN                50
+2002   85         3           NaN                55
+2003   88         2           NaN                65
+2004   85         2           NaN                55
+2005   80         2           NaN                50
+2006   85         3           NaN                55
+2007   88         2           NaN                65
+2008   85         2           NaN                55
+2001   80         2            50               NaN
+2002   85         3            52               NaN
+2003   88         2            50               NaN
+2004   85         2            53               NaN
+```
+We can also append the first two dataframes without issues.
+
+```
+df4 = df1.append(df2)
+print(df4)
+
+#output
+
+      HPI  Int_rate  US_GDP_Thousands
+2001   80         2                50
+2002   85         3                55
+2003   88         2                65
+2004   85         2                55
+2005   80         2                50
+2006   85         3                55
+2007   88         2                65
+2008   85         2                55
+```
+
+We can make single-columned dataframes with series.
+```
+s = pd.Series([80,2,50], index=['HPI','Int_rate','US_GDP_Thousands'])
+df4 = df1.append(s, ignore_index=True)
+print(df4)
+
+#output
+  HPI  Int_rate  US_GDP_Thousands
+0   80         2                50
+1   85         3                55
+2   88         2                65
+3   85         2                55
+4   80         2                50
+```
+
+## Joining and Merging Dataframes
