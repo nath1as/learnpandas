@@ -121,4 +121,35 @@ Use pandas to convert data type:
 df.to_html('example.html')
 ```
 
+## Building a Dataset
+
+We use quandl library to get the data.
+
+```
+import quandl
+
+df = quandl.get("FMAC/HPI_TX")
+
+print(df.head())
+```
+
+Because quandl data is per state, we can pull the US states table from simple
+wiki, and then iterate through it.
+```
+fiddy_states = pd.read_html('https://simple.wikipedia.org/wiki/List_of_U.S._states')
+print(fiddy_states)
+
+for abbv in fiddy_states[0][0][1:]:
+    print(abbv)
+```
+
+After making sure it works we can make the codes to get the data from quandl.
+
+```
+for abbv in fiddy_states[0][0][1:]:
+    #print(abbv)
+    print("FMAC/HPI_"+str(abbv))
+```
+
+## Concatenating Dataframes
 
