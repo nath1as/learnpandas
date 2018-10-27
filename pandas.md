@@ -1,6 +1,5 @@
 # Pandas libraray
-Pandas is a library for data structures and data analysis.
-
+Pandas is a library for data structures and data analysis. Tutorials from pythonprogramming.net.
 ## Basics
 Import pandas as pd, using DataFrame function to create a data frame, and printing it.
 ```
@@ -64,7 +63,7 @@ df2 = pd.DataFrame(np.array(df[['Bounce_Rate', 'Visitors']]))
 ```
 
 ## Pandas IO
-Display some sample data from quandl.com, and add indexing by date.
+Read and display some sample data from quandl.com, and add indexing by date.
 
 ```
 import pandas as pd
@@ -74,4 +73,52 @@ print(df.head())
 
 df.set_index('Date', inplace = True)
 ```
+
+Export data:
+```
+df.to_csv('newcsv2.csv')
+```
+
+Export just a column of data:
+```
+df['Value'].to_csv('newcsv2.csv')
+```
+Read, index and display the new file:
+```
+df = pd.read_csv('newcsv2.csv')
+df = pd.read_csv('newcsv2.csv', index_col=0)
+print(df.head())
+```
+
+Change the name of values:
+```
+df.columns = ['House_Prices']
+print(df.head())
+```
+
+Rename specific values:
+```
+df = pd.read_csv('newcsv4.csv', names = ['Date','House_Price'])
+print(df.head())
+
+df.rename(columns={'House_Price':'Prices'}, inplace=True)
+print(df.head())
+```
+
+
+Save to csv:
+```
+df.to_csv('newcsv3.csv')
+```
+
+Save without headers:
+```
+df.to_csv('newcsv4.csv', header=False)
+```
+
+Use pandas to convert data type:
+```
+df.to_html('example.html')
+```
+
 
