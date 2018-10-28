@@ -18,5 +18,5 @@ df3 = pd.DataFrame({'HPI':[80,85,88,85],
 concat = pd.concat([df1, df2])
 
 s = pd.Series([80, 2, 50], index= ['HPI', 'Int_rate', 'US_GDP_Thousands'])
-df4 = df1.append(s, ignore_index = True)
+df4 = df1.append(s, ignore_index = True) 
 print(df4)

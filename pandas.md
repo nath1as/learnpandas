@@ -153,8 +153,11 @@ for abbv in fiddy_states[0][0][1:]:
     print("FMAC/HPI_"+str(abbv))
 ```
 
-## Concatenating and Appending Dataframes
-The first and third dataframe have the same index but different columns, the wecond and third different indexes and some different columns.
+## Combining Dataframes
+We can combine dataframes by concatenation or appending to enlongate the dataframes or by merging (if index does not matter) or joining (if index matters) in a more complex combination.
+
+###Concatenating and Appending Dataframes
+The first and third dataframe have the same index but different columns, the wecond and third different indexes and some different columns. You would use concatenation or appending to enlongate the dataframe.
 
 ```
 import pandas as pd
@@ -250,4 +253,74 @@ print(df4)
 4   80         2                50
 ```
 
-## Joining and Merging Dataframes
+### Joining and Merging Dataframes
+
+We can use merge (when the index does not matter) or join (where the index does matter) on dataframes with similar data.
+```
+import pandas as pd
+
+df1 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Int_rate':[2, 3, 2, 2],
+                    'US_GDP_Thousands':[50, 55, 65, 55]},
+                   index = [2001, 2002, 2003, 2004])
+
+df2 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Int_rate':[2, 3, 2, 2],
+                    'US_GDP_Thousands':[50, 55, 65, 55]},
+                   index = [2005, 2006, 2007, 2008])
+
+df3 = pd.DataFrame({'HPI':[80,85,88,85],
+                    'Unemployment':[7, 8, 9, 6],
+                    'Low_tier_HPI':[50, 52, 50, 53]},
+                   index = [2001, 2002, 2003, 2004])
+
+print(pd.merge(df1,df3, on='HPI'))
+
+```
+You can merge on columns you want to combine, and then set the new index.
+
+```
+df4 = pd.merge(df1,df3, on='HPI')
+df4.set_index('HPI', inplace=True)
+print(df4)
+```
+If the index exists already, it is better to use join.
+
+```
+df1.set_index('HPI', inplace=True)
+df3.set_index('HPI', inplace=True)
+
+joined = df1.join(df3)
+print(joined)
+```
+
+If we want to combine differing dataframes, we must specify more options or the merged dataframes will be populated with NaN values.
+
+```
+df1 = pd.DataFrame({
+                    'Int_rate':[2, 3, 2, 2],
+                    'US_GDP_Thousands':[50, 55, 65, 55],
+                    'Year':[2001, 2002, 2003, 2004]
+                    })
+
+df3 = pd.DataFrame({
+                    'Unemployment':[7, 8, 9, 6],
+                    'Low_tier_HPI':[50, 52, 50, 53],
+                    'Year':[2001, 2003, 2004, 2005]})
+
+merged = pd.merge(df1,df3, on='Year')
+print(merged)
+```
+We can specify the how parameter for merge and join that works like SQL join statements ( left is left outer join, right is right outer join, outer is full outer join, inner is the intersection).
+
+```
+merged = pd.merge(df1,df3, on='Year', how='outer')
+merged.set_index('Year', inplace=True)
+print(merged
+
+df1.set_index('Year', inplace=True)
+df3.set_index('Year', inplace=True)
+joined = df1.join(df3, how="outer")
+print(joined)
+```
+## Pickling
