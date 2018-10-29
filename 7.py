@@ -5,7 +5,7 @@ api_key = open('quandlapikey.text', 'r').read()
 
 # df = quandl.get('FMAC/HPI_AK')
 
-print(df.head())
+# print(df.head())
 
 fiddy_states = pd.read_html(
     'https://simple.wikipedia.org/wiki/List_of_U.S._states'
