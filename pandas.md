@@ -323,4 +323,52 @@ df3.set_index('Year', inplace=True)
 joined = df1.join(df3, how="outer")
 print(joined)
 ```
+
 ## Pickling
+
+We get the data for all different US states from quandl and save it with pickling, an alternative to saving data on a file.
+
+```
+import quandl
+import pandas as pd
+import pickle
+
+
+def state_list():
+    fiddy_states = pd.read_html(
+        'https://simple.wikipedia.org/wiki/List_of_U.S._states')
+    return fiddy_states[0][1][1:]
+
+
+def grab_initial_state_data():
+    states = state_list()
+
+    main_df = pd.DataFrame()
+
+    for abbv in states:
+        query = "FMAC/HPI_"+str(abbv)
+        df = quandl.get(query)
+        df.columns = [str(abbv)]
+        if main_df.empty:
+            main_df = df
+        else:
+            main_df = main_df.join(df)
+
+    pickle_out = open('fiddy_states.pickle', 'wb')
+    pickle.dump(main_df, pickle_out)
+    pickle_out.close()
+
+
+grab_initial_state_data()
+
+pickle_in = open('fiddy_states.pickle', 'rb')
+HPI_data = pickle.load(pickle_in)
+print(HPI_data.head())
+```
+
+We open a .pickle file to write, then we do a pickle.dump, to dump the data we want, specify where we want it and close it. To use the pickled data we open it and load it to a variable.
+
+## Percent Change and Correlation Tables
+
+
+

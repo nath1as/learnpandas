@@ -2,9 +2,6 @@ import quandl
 import pandas as pd
 import pickle
 
-# Not necessary, I just do this so I do not show my API key.
-# api_key = open('quandlapikey.txt','r').read()
-
 
 def state_list():
     fiddy_states = pd.read_html(
